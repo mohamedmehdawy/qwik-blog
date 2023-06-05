@@ -1,6 +1,8 @@
-import { component$ } from "@builder.io/qwik";
-
+import { component$, useStylesScoped$ } from "@builder.io/qwik";
+import ContactStyle from "./contact.css?inline";
 export default component$(() => {
+   useStylesScoped$(ContactStyle);
+   
    return (
       <section>
          <h2>contact page</h2>

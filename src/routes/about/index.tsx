@@ -1,9 +1,10 @@
-import { component$ } from "@builder.io/qwik";
+import { component$, useStyles$, useStylesScoped$ } from "@builder.io/qwik";
+import AboutStyle from "./about.css?inline";
 
 export default component$(() => {
-   console.log('hello')
+   useStylesScoped$(AboutStyle)
    return (
-      <section>
+      <article>
          <h2>About page</h2>
          <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic
@@ -29,6 +30,6 @@ export default component$(() => {
             enim tempora explicabo natus nisi ut nostrum molestias rerum
             corrupti. Corporis, numquam architecto? Fugit.
          </p>
-      </section>
+      </article>
    );
 });
