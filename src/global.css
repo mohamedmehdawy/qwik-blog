@@ -17,3 +17,14 @@
    margin: 0;
    font-size: 1.8em;
  }
+
+ /* buttons */
+button {
+   background-color: var(--theme-red);
+   border: 0;
+   padding: 8px 10px;
+   border-radius: 4px;
+   color: white;
+   cursor: pointer;
+   font-family: "Poppins";
+ }

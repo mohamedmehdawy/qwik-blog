@@ -1,5 +1,5 @@
 import { $, component$, useSignal, useStore } from "@builder.io/qwik";
-import type { DocumentHead } from "@builder.io/qwik-city";
+import { DocumentHead, Link } from "@builder.io/qwik-city";
 
 export default component$(() => {
 
@@ -27,6 +27,7 @@ export default component$(() => {
          )
       })}
       <button onClick$={() => blogs.pop()}>remove a blog</button>
+
       </>
    )
 ;
