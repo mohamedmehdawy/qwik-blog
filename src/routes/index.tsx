@@ -1,25 +1,43 @@
-import { component$ } from '@builder.io/qwik';
-import type { DocumentHead } from '@builder.io/qwik-city';
-
-import Counter from '~/components/starter/counter/counter';
-import Hero from '~/components/starter/hero/hero';
-import Infobox from '~/components/starter/infobox/infobox';
-import Starter from '~/components/starter/next-steps/next-steps';
+import { $, component$, useSignal, useStore } from "@builder.io/qwik";
+import type { DocumentHead } from "@builder.io/qwik-city";
 
 export default component$(() => {
-  return (
-    <>
 
-    </>
-  );
+   const name = useSignal('mohamed');
+   const person = useStore({
+      name: name.value,
+      age: 18,
+      gender: 'male'
+   });
+   const blogs = useStore([
+      { id: 1, title: '5 Tips for Reducing Stress in the Workplace' },
+      { id: 2, title: 'Why Investing in Self-Care is Essential for Your Mental Health' },
+      { id: 3, title: 'The Benefits of Mindfulness Meditation for Beginners' },
+      { id: 4, title: 'How to Build a Successful Remote Team: Lessons Learned' }
+   ]);
+   return (
+      <>
+      <h1>Hello my name is: {person.name}</h1>
+      <p>i have {person.age}</p>
+      <p>and my gender is: {person.gender}</p>
+      <button onClick$={() => person.name = 'ahmed'}>change me</button>
+      {blogs.map(blog => {
+         return (
+            <div key={blog.id}>{blog.title}</div>
+         )
+      })}
+      <button onClick$={() => blogs.pop()}>remove a blog</button>
+      </>
+   )
+;
 });
 
 export const head: DocumentHead = {
-  title: 'Welcome to Qwik',
-  meta: [
-    {
-      name: 'description',
-      content: 'Qwik site description',
-    },
-  ],
+   title: "Welcome to Qwik",
+   meta: [
+      {
+         name: "description",
+         content: "Qwik site description",
+      },
+   ],
 };
