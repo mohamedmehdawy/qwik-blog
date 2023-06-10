@@ -1,5 +1,6 @@
 import { component$, useSignal, useStore, useStylesScoped$ } from "@builder.io/qwik";
 import ContactStyle from "./contact.css?inline";
+import Modal from "~/components/starter/modal/modal";
 export default component$(() => {
    useStylesScoped$(ContactStyle);
    const formVisible = useSignal(false);
@@ -7,7 +8,8 @@ export default component$(() => {
       name: '',
       message: ''
    });
-   const message = useSignal('fdfgdf')
+   
+   const modalVisible = useSignal(false);
    return (
       <section>
          <h2>contact page</h2>
@@ -20,10 +22,9 @@ export default component$(() => {
          <button onClick$={() => formVisible.value = true}>show from</button>
          {formVisible.value && (
             <form preventdefault:submit onSubmit$={() => {
-               formData.name = '';
-               formData.message = '';
-
-            }}>
+               modalVisible.value = true;
+               
+            }}>   
                <label>
                   <span>Your name:</span>
                   <input type="text" value={formData.name} onInput$={(e) => formData.name = (e.target as HTMLInputElement).value}/>
@@ -37,6 +38,14 @@ export default component$(() => {
                <div>message: {formData.message}</div>
 
             </form>
+         )}
+         {modalVisible.value && (
+            <Modal>
+               <h2>Welcome {formData.name}</h2>
+               <div q:slot="footer">
+                  your message is: {formData.message}
+               </div>
+            </Modal>
          )}
       </section>
    );

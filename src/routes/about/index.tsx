@@ -1,8 +1,17 @@
-import { component$, useStyles$, useStylesScoped$ } from "@builder.io/qwik";
+import {
+   component$,
+   useSignal,
+   useStyles$,
+   useStylesScoped$,
+} from "@builder.io/qwik";
+import Modal from "~/components/starter/modal/modal";
 import AboutStyle from "./about.css?inline";
 
 export default component$(() => {
-   useStylesScoped$(AboutStyle)
+   useStylesScoped$(AboutStyle);
+
+   const modalVisible = useSignal(false);
+
    return (
       <article>
          <h2>About page</h2>
@@ -30,6 +39,15 @@ export default component$(() => {
             enim tempora explicabo natus nisi ut nostrum molestias rerum
             corrupti. Corporis, numquam architecto? Fugit.
          </p>
+         <button onClick$={() => modalVisible.value = true}>Show modal</button>
+         {modalVisible.value &&
+            <Modal>
+               <h2>Good News!!!</h2>
+               
+               <div q:slot="footer">
+                  <button>Sign Up Now</button>
+               </div>
+            </Modal>}
       </article>
    );
 });
