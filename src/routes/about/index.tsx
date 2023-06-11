@@ -41,7 +41,7 @@ export default component$(() => {
          </p>
          <button onClick$={() => modalVisible.value = true}>Show modal</button>
          {modalVisible.value &&
-            <Modal>
+            <Modal size="lg" frosted={true}>
                <h2>Good News!!!</h2>
                
                <div q:slot="footer">

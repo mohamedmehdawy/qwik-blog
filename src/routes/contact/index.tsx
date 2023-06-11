@@ -40,7 +40,7 @@ export default component$(() => {
             </form>
          )}
          {modalVisible.value && (
-            <Modal>
+            <Modal size="lg">
                <h2>Welcome {formData.name}</h2>
                <div q:slot="footer">
                   your message is: {formData.message}
