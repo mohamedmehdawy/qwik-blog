@@ -1,36 +1,48 @@
-import { $, component$, useSignal, useStore } from "@builder.io/qwik";
-import { DocumentHead, Link } from "@builder.io/qwik-city";
+import {
+   $,
+   component$,
+   useSignal,
+   useStore,
+   useResource$,
+   Resource,
+} from "@builder.io/qwik";
 
+import { DocumentHead, Link, routeLoader$ } from "@builder.io/qwik-city";
+interface Post {
+   id: string;
+   title: string;
+   content: string;
+}
 export default component$(() => {
-
-   const name = useSignal('mohamed');
-   const person = useStore({
-      name: name.value,
-      age: 18,
-      gender: 'male'
+   const blogsData = useResource$<Post[]>(async (req) => {
+      console.log("resource");
+      const response = await fetch("http://localhost:3000/blogs");
+      return await response.json();
    });
-   const blogs = useStore([
-      { id: 1, title: '5 Tips for Reducing Stress in the Workplace' },
-      { id: 2, title: 'Why Investing in Self-Care is Essential for Your Mental Health' },
-      { id: 3, title: 'The Benefits of Mindfulness Meditation for Beginners' },
-      { id: 4, title: 'How to Build a Successful Remote Team: Lessons Learned' }
-   ]);
+
    return (
       <>
-      <h1>Hello my name is: {person.name}</h1>
-      <p>i have {person.age}</p>
-      <p>and my gender is: {person.gender}</p>
-      <button onClick$={() => person.name = 'ahmed'}>change me</button>
-      {blogs.map(blog => {
-         return (
-            <div key={blog.id}>{blog.title}</div>
-         )
-      })}
-      <button onClick$={() => blogs.pop()}>remove a blog</button>
-
+         <div>
+            <Resource
+               value={blogsData}
+               onPending={() => <div>loading...</div>}
+               onResolved={(blogs) => (
+                  <>
+                     <div class="blogs">
+                        {blogs &&
+                           blogs.map((post) => (
+                              <div key={post.id}>
+                                 <h3>{post.title}</h3>
+                                 <p>{post.content.slice(0, 50)}...</p>
+                              </div>
+                           ))}
+                     </div>
+                  </>
+               )}
+            />
+         </div>
       </>
-   )
-;
+   );
 });
 
 export const head: DocumentHead = {
