@@ -9,7 +9,9 @@ export default component$(() => {
    return (
       <header>
          <nav>
-            <QwikLogo />
+            <Link href="/">
+               <QwikLogo />
+            </Link>
             <ul>
                <li>
                   <Link href="/">Home</Link>
