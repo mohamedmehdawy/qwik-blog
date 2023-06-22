@@ -4,6 +4,9 @@ import { Post } from "./interfaces/post";
 export const getPost = routeLoader$<Post>(async (req) => {
    const response = await fetch(`http://localhost:3000/blogs/${req.params.id}`);
 
+   if (!response.ok) {
+      throw req.redirect(302, '/')
+   }
    return await response.json();
 
 })
