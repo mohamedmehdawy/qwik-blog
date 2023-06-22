@@ -65,7 +65,7 @@ export default component$(() => {
             </form>
          )}
          {modalVisible.value && (
-            <Modal size="lg" close={closeModal}>
+            <Modal size="lg" close={closeModal} frosted={true}>
                <h2>Welcome {formData.name}</h2>
                <div q:slot="footer">your message is: {formData.message}</div>
             </Modal>

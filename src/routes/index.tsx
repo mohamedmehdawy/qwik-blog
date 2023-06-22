@@ -9,7 +9,7 @@ import {
 
 import { DocumentHead, Link, routeLoader$ } from "@builder.io/qwik-city";
 import { Post } from "./blog/[id]/interfaces/post";
-
+import Card from "~/components/starter/card/card";
 
 export const getBlogs = routeLoader$<Post[]>(async () => {
    const response = await fetch("http://localhost:3000/blogs");
@@ -23,11 +23,15 @@ export default component$(() => {
          <div class="blogs">
             {blogs.value &&
                blogs.value.map((post) => (
-                  <div key={post.id}>
-                     <h3>{post.title}</h3>
-                     <p>{post.content.slice(0, 50)}...</p>
-                     <Link href={`/blog/${post.id}`}>Read More</Link>
-                  </div>
+                  <Card key={post.id}>
+                     <h3 q:slot="title">{post.title}</h3>
+                     <p q:slot="content">{post.content.slice(0, 50)}...</p>
+                     <Link q:slot="footer" href={`/blog/${post.id}`}>
+                        <button>
+                           Read More
+                        </button>
+                     </Link>
+                  </Card>
                ))}
          </div>
       </>
